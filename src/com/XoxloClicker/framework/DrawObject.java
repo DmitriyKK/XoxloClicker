@@ -1,31 +1,38 @@
 package com.XoxloClicker.framework;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.*;
 import android.util.Log;
-
-import java.util.Random;
 
 
 /**
  * Created by dakue_000 on 09.06.2015.
  */
-public class DrawObject extends android.graphics.drawable.AnimationDrawable {
-    protected Paint paint = new Paint();
-    protected Random rand = new Random();
+public abstract class DrawObject extends android.graphics.drawable.Drawable {
 
     public DrawObject() {
-        setBounds(100, 100, 300, 200);
-        paint.setStyle(Paint.Style.FILL);
-        Log.v("DrawObject", this.getBounds().toString());
+        this(new Rect(100, 100, 200, 200));
+    }
+
+    public DrawObject(Rect bounds) {
+        setBounds(bounds);
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        paint.setARGB(255 ,rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
-        canvas.drawRect(getBounds(), paint);
+    public void setAlpha(int i) {
+        throw new UnsupportedOperationException();
     }
 
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getOpacity() {
+        return 0;
+    }
+
+    public void onTouch() {
+        Log.d(this.getClass().getName(), "onTouch()");
+    }
 }
