@@ -42,11 +42,9 @@ public class View extends android.view.SurfaceView implements SurfaceHolder.Call
         while(!Thread.interrupted()) {
             try {
                 canvas = holder.lockCanvas();
-
                 for (int i = 0, count = drawObjects.size(); i < count; ++i) {
                     drawObjects.get(i).draw(canvas);
                 }
-
             } catch (Exception e) {
                 Log.d("View canvas" ,canvas != null ? "exist" : "not exist");
                 throw e;
