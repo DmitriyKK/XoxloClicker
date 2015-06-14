@@ -13,8 +13,8 @@ public abstract class Container extends DrawObject {
     private final CopyOnWriteArrayList<DrawObject> drawObjects = new CopyOnWriteArrayList<>();
     private final Rect rect = new Rect();
 
-    public void add(DrawObject drawObject) {
-        drawObjects.add(drawObject);
+    public void add(DrawObject obj) {
+        drawObjects.add(obj);
         resetRect();
     }
 

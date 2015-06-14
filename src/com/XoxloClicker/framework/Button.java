@@ -1,4 +1,4 @@
-package com.XoxloClicker.graphics;
+package com.XoxloClicker.framework;
 
 import android.graphics.*;
 import android.util.Log;
@@ -8,23 +8,23 @@ import com.XoxloClicker.framework.Sprite;
 /**
  * Created by dakue_000 on 12.06.2015.
  */
+public class Button extends Sprite {
+    public final Signal signal = new Signal();
 
-/**
- * Main button. Emit "click"
- */
+    public Button(Sprite.File sprite) {
+        super(sprite, null);
+    }
 
-public class CentralButton extends Button {
+    public Button(Rect rect) {
+        this(null, rect);
+    }
 
-
-    public CentralButton(Rect rect) {
-        super(rect);
-
-        sprite = Bitmap.createBitmap(rect.width(), rect.height(), Bitmap.Config.ARGB_4444);
-        Canvas canvas = new Canvas(sprite);
+    public Button(Sprite.File sprite, Rect rect) {
+        super(sprite, rect);
         Paint paint = new Paint();
         paint.setColor(Color.GRAY);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        canvas.drawRoundRect(new RectF(0, 0, sprite.getWidth(), sprite.getHeight()), 10, 10, paint);
+//        canvas.drawRoundRect(new RectF(0, 0, sprite.image.getWidth(), sprite.image.getHeight()), 10, 10, paint);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class CentralButton extends Button {
             signal.emit("click");
         }
 
-        Log.d("CentralButton.signal", event.ev);
+        Log.d("Button.signal", event.ev);
     }
 
     @Override
     public void animate(boolean always) {
-        Log.d("CentralButton", "animate()");
+        Log.d("Button", "animate()");
     }
 }

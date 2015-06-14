@@ -12,9 +12,10 @@ import com.XoxloClicker.framework.DrawObject;
 import com.XoxloClicker.framework.Signal;
 import com.XoxloClicker.framework.View;
 import com.XoxloClicker.graphics.Background;
-import com.XoxloClicker.graphics.CentralButton;
+import com.XoxloClicker.framework.Button;
 import com.XoxloClicker.graphics.CountLabel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main extends Activity {
@@ -23,14 +24,17 @@ public class Main extends Activity {
     Signal signal = new Signal();
 
     Game game = new Game();
+    FileIO fileIO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Log.d("Activity", "onCreate()");
+
+        fileIO = new FileIO(getAssets());
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        super.onCreate(savedInstanceState);
         view = new View(this);
         view.setOnTouchListener(touchListener);
 
@@ -44,24 +48,29 @@ public class Main extends Activity {
     void createGraphics(int width, int height) {
         final int centerX = width/2, centerY = height/2;
 
-        CentralButton centralBtn = new CentralButton(new Rect(centerX - 50, centerY - 50, centerX + 50, centerY + 50));
-        CountLabel countLbl = new CountLabel(new Rect(20, 50, width-20, 150));
+        try {
+            Button centralBtn = new Button(fileIO.getAssetImage("salo.png"),
+                    DrawObject.getCenteredRect(centerX, centerY, 75));
+            CountLabel countLbl = new CountLabel(new Rect(20, 50, width - 20, 150));
 
-        DrawObject[] drawObjects = {
-                new Background(this.getWindowManager().getDefaultDisplay()),
-                centralBtn,
-                countLbl
-        };
+            DrawObject[] drawObjects = {
+                    new Background(this.getWindowManager().getDefaultDisplay()),
+                    centralBtn,
+                    countLbl
+            };
 
-        signal.addListener(drawObjects[0]);
-        centralBtn.signal.addListener(game);
-        game.signal.addListener(countLbl);
+            signal.addListener(drawObjects[0]);
+            centralBtn.signal.addListener(game);
+            game.signal.addListener(countLbl);
 
-        for (int i = 0; i < drawObjects.length; ++i)
-            view.drawObjects.add(drawObjects[i]);
+            for (int i = 0; i < drawObjects.length; ++i)
+                view.drawObjects.add(drawObjects[i]);
 
-        for (int i = 1; i < drawObjects.length; ++i)
-            touchListener.respodents.add(drawObjects[i]);
+            for (int i = 1; i < drawObjects.length; ++i)
+                touchListener.respodents.add(drawObjects[i]);
+        } catch (IOException e) {
+            Log.e("Exception", e.getMessage(), e);
+        }
     }
 
     @Override

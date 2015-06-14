@@ -35,4 +35,8 @@ public abstract class DrawObject extends android.graphics.drawable.Drawable impl
     public abstract void signalReceived(Signal.Event event);
 
     public abstract void animate(boolean always);
+
+    public static Rect getCenteredRect(int x, int y, int radius) {
+        return new Rect(x - radius, y - radius, x + radius, y + radius);
+    }
 }

@@ -8,26 +8,36 @@ import android.graphics.Rect;
  * Created by dakue_000 on 10.06.2015.
  */
 public abstract class Sprite extends DrawObject {
-    protected int spriteRows = 1, spriteCols = 1, spriteSpeed = 50;
-    protected int x = 0, y = 0;
-    protected Bitmap sprite;
+    protected int x = 0, y = 0, w = 1, h = 1, spriteSpeed = 50;
+    protected Sprite.File sprite;
 
-    public Sprite(Bitmap sprite) {
-        this.sprite = sprite;
+    public static class File {
+        public Bitmap image;
+        public int rows, cols;
+
+        public File(Bitmap image) {
+            this(image, 1, 1);
+        }
+
+        public File(Bitmap image, int rows, int cols) {
+            this.image = image;
+            this.rows = rows;
+            this.cols = cols;
+        }
     }
 
-    public Sprite(Rect bounds) {
-        super(bounds);
-    }
+    public Sprite(Sprite.File sprite) { this(sprite, null); }
 
-    public Sprite(Rect bounds, Bitmap sprite) {
+    public Sprite(Sprite.File sprite, Rect bounds) {
         super(bounds);
         this.sprite = sprite;
+
+        w = sprite.image.getWidth() / sprite.cols;
+        h = sprite.image.getHeight() / sprite.rows;
     }
 
     @Override
     public void draw(Canvas canvas) {
-//        canvas.drawBitmap(sprite, new Rect(0, 0, sprite.getWidth(), sprite.getHeight()), (Rect)null, null);
-        canvas.drawBitmap(sprite, getBounds().left, getBounds().top, null);
+        canvas.drawBitmap(sprite.image, new Rect(x, y, w, h), getBounds(), null);
     }
 }
