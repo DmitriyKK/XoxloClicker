@@ -2,8 +2,6 @@ package com.XoxloClicker.framework;
 
 import android.graphics.*;
 import android.util.Log;
-import com.XoxloClicker.framework.Signal;
-import com.XoxloClicker.framework.Sprite;
 
 /**
  * Created by dakue_000 on 12.06.2015.
@@ -29,11 +27,11 @@ public class Button extends Sprite {
 
     @Override
     public void signalReceived(Signal.Event event) {
-        if (event.ev.equals("touchEvent")) {
+        if (event.string.equals("touchEvent")) {
             signal.emit("click");
         }
 
-        Log.d("Button.signal", event.ev);
+        Log.d("Button.signal", event.string);
     }
 
     @Override

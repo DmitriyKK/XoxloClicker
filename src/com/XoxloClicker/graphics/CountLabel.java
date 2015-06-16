@@ -1,7 +1,8 @@
 package com.XoxloClicker.graphics;
 
+import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
+import com.XoxloClicker.Game;
 import com.XoxloClicker.framework.Label;
 import com.XoxloClicker.framework.Signal;
 
@@ -16,9 +17,15 @@ public class CountLabel extends Label {
 
     @Override
     public void signalReceived(Signal.Event event) {
-        if (event.ev.equals("valueChanged")) {
-            drawText = Long.toString(event.integer);
-        }
+//        if (event.string.equals("valueChanged")) {
+//            drawText = Long.toString(((Game)event.obj).getValue());
+//        }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        drawText = Long.toString(Game.getValue());
+        super.draw(canvas);
     }
 
     @Override

@@ -12,22 +12,24 @@ public final class Signal {
     }
 
     public static class Event {
-        public String ev;
+        public int eventType;
+        public String string;
         public Object obj;
-        public long integer;
 
-        public Event(String ev) {
-            this(ev, null, 0);
+        public Event(int eventType) { this(eventType, null, null); }
+
+        public Event(String string) {
+            this(0, string, null);
         }
 
-        public Event(String ev, Object obj) {
-            this(ev, obj, 0);
+        public Event(String string, Object obj) {
+            this(0, string, obj);
         }
 
-        public Event(String ev, Object obj, long integer) {
-            this.ev = ev;
+        public Event(int eventType, String string, Object obj) {
+            this.eventType = eventType;
+            this.string = string;
             this.obj = obj;
-            this.integer = integer;
         }
     }
 
@@ -43,10 +45,10 @@ public final class Signal {
             arr.get(i).signalReceived(event);
     }
 
-    public void addListener(Listener listener) {
+    public void addListeger(Listener listener) {
         arr.add(listener);
     }
-    public void addListeger(Listener[] listeners) {
+    public void addListegers(Listener[] listeners) {
         for (int i = 0; i < listeners.length; ++i) {
             arr.add(listeners[i]);
         }

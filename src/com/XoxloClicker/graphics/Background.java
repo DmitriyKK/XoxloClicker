@@ -49,9 +49,9 @@ public class Background  extends DrawObject implements Signal.Listener {
 
     @Override
     public void signalReceived(Signal.Event event) {
-        if (event.ev.equals("pause")) {
+        if (event.string.equals("pause")) {
             timer.cancel();
-        } else if (event.ev.equals("resume")) {
+        } else if (event.string.equals("resume")) {
             timer = new Timer();
             timer.schedule(new TimerTask1(), 0, 50);
         }

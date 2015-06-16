@@ -1,7 +1,7 @@
 package com.XoxloClicker.framework;
 
 import android.graphics.*;
-import android.util.Log;
+import com.XoxloClicker.Game;
 
 
 /**
@@ -36,7 +36,24 @@ public abstract class DrawObject extends android.graphics.drawable.Drawable impl
 
     public abstract void animate(boolean always);
 
-    public static Rect getCenteredRect(int x, int y, int radius) {
+    public static Rect centered(int x, int y, int radius) {
         return new Rect(x - radius, y - radius, x + radius, y + radius);
+    }
+
+    public static Rect topLeft(int x, int y, int radius) {
+        return new Rect(x, y, x+radius, y+radius);
+    }
+
+    public static Rect topRight(int x, int y, int raduis) {
+        return new Rect(Game.displayBounds.right-raduis-x, y, Game.displayBounds.right-x, raduis);
+    }
+
+    public static Rect bottomLeft(int x, int y, int raduis) {
+        return new Rect(x, Game.displayBounds.bottom-raduis-y, x+raduis, Game.displayBounds.bottom-y);
+    }
+
+    public static Rect bottomRight(int x, int y, int raduis) {
+        Rect r = Game.displayBounds;
+        return new Rect(r.right-raduis-x, r.bottom-raduis-y, r.right-x, r.bottom-y);
     }
 }
